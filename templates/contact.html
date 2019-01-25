@@ -1,0 +1,52 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block content %}
+    
+    
+    <!-- s-content
+    ================================================== -->
+    <section class="s-content s-content--narrow">
+
+        <div class="row">
+            <div class="col-full s-content__main">
+
+                <form name="cForm" id="cForm" method="post" action="">
+                    <fieldset>
+
+                        <div class="form-field">
+                            <input name="cName" type="text" id="cName" class="full-width" placeholder="Your Name" value="">
+                        </div>
+
+                        <div class="form-field">
+                            <input name="cEmail" type="text" id="cEmail" class="full-width" placeholder="Your Email" value="">
+                        </div>
+
+                        <div class="form-field">
+                            <input name="cWebsite" type="text" id="cWebsite" class="full-width" placeholder="Website"  value="">
+                        </div>
+
+                        <div class="message form-field">
+                        <textarea name="cMessage" id="cMessage" class="full-width" placeholder="Your Message" ></textarea>
+                        </div>
+
+                        <button type="submit" class="submit btn btn--primary full-width">Submit</button>
+
+                    </fieldset>
+                </form> <!-- end form -->
+
+
+            </div> <!-- end s-content__main -->
+
+        </div> <!-- end row -->
+
+    </section> <!-- s-content -->
+
+
+{% endblock content %}
+
+
+
+
+
+

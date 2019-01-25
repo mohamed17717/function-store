@@ -1,0 +1,76 @@
+{% extends "index.html" %}
+{% load static %}
+{% load myfilters %}
+
+{% block content %}
+    
+    
+    <!-- s-content
+    ================================================== -->
+    <section class="s-content s-content--narrow">
+
+        <div class="row">
+            
+            {% for function in functions %}
+                
+            
+                
+            <div class="s-content__header col-full">
+                <h1 class="s-content__header-title">
+                    {{function.name}}.
+                </h1>
+            </div> <!-- end s-content__header -->
+    
+            <div class="s-content__media col-full">
+                <div id="map-wrap">
+                    <div id="map-container">
+                        {{function.content | replacetabs | safe | linebreaks}}
+                    </div>
+                </div> 
+            </div> <!-- end s-content__media -->
+
+            <div class="col-full s-content__main">
+
+                <p class="lead">
+                    Date: {{function.created | date:'jM, Y'}}
+                </p>
+                
+                <p>
+                    Comment: {{function.comment}}
+                </p>
+
+            </div> <!-- end s-content__main -->
+
+            <!-- func tags -->
+            <div class="entry__meta">
+                <span class="entry__meta-links">
+                    {% for tag in function.tags|split:' ' %}
+                        <div style="
+                                background: #FFF; 
+                                display: 
+                                inline-block;  
+                                margin-right: 10px; 
+                                padding: 5px 13px 5px 10px; 
+                                border-radius: 5px; 
+                                position: relative;">
+                            <a href="{% url 'functions:tag_functions' tag %}" style="margin-right: 10px">{{tag}}</a>
+                            <a href="{% url 'functions:remove_function_tag' function.slug tag %}" style="color: #333; font-size: .7em; position:absolute; top: 50%; transform: translateY(-50%); margin-right: 5px">x</a>
+                            
+                        </div>
+                    {% endfor %}
+                </span>
+            </div>
+            {% endfor %}
+
+        </div> <!-- end row -->
+
+    </section> <!-- s-content -->
+
+
+{% endblock content %}
+
+
+
+
+
+

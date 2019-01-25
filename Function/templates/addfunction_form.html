@@ -1,0 +1,94 @@
+{% extends "index.html" %}
+{% load static %}
+{% load myfilters %}
+{% block content %}
+    
+    
+    <!-- s-content
+    ================================================== -->
+    <section class="s-content s-content--narrow">
+
+        <div class="row">
+            <div class="col-full s-content__main">
+
+                <form name="cForm" id="cForm" method="post" action="">
+                    {% csrf_token %}
+                   
+                    <fieldset>
+
+                        <div class="form-field">
+                            <input name="{{form.name.name}}" type="text" class="full-width" placeholder="Name" value="{{form.name.value | default_if_none:''}}">
+                        </div>
+
+                        
+                        <div class="form-field">
+                            <div class="entry__meta">
+                                <span class="entry__meta-links">
+                                    {% if btn == 'Update' %}    
+                                    {% with form.tags.value|split:' ' as tags %}
+                                    {% for tag in tags %}
+                                        <div style="background: #FFF; display: inline-block; margin-right: 10px; padding: 5px 13px 5px 10px; border-radius: 5px; position: relative;">
+                                            <a class="old-tag" href="{% url 'functions:tag_functions' tag %}" style="margin-right: 10px">{{tag}}</a>
+                                            <a href="{% url 'functions:remove_function_tag' slug tag %}" style="color: #333; font-size: .7em; position:absolute; top: 50%; transform: translateY(-50%); margin-right: 5px">x</a>
+                                        </div>
+                                    {% endfor %}
+                                    {% endwith %}
+                                    {% endif %}
+
+                                        
+
+                                </span>
+                            </div>
+                            <input id="new-tags"  name="" type="text" class="full-width" placeholder="tags" value="">
+                            <input id="all-tags"  name="{{form.tags.name}}" type="hidden">
+                            <script>
+                                form = document.getElementById('cForm')
+                                form.onsubmit = ()=>{
+
+                                    var AllTags = document.getElementById('all-tags'),
+                                        NewTags = document.getElementById('new-tags'),
+                                        OldTags = document.getElementsByClassName('old-tag'),
+                                        OldTagsTxt = '',
+                                        NewTagsTxt = '';
+    
+                                    for (tag of OldTags){
+                                        OldTagsTxt += tag.text + ' '
+                                    }
+    
+                                    NewTagsTxt = NewTags.value
+                                    AllTags.value = OldTagsTxt + NewTagsTxt
+    
+                                    console.log(AllTags.value)
+                                }
+
+                            </script>
+                        </div>                            
+
+                        <div class="form-field">
+                            <input name="{{form.comment.name}}" type="text" class="full-width" placeholder="Comment"  value="{{form.comment.value | default_if_none:''}}">
+                        </div>
+
+                        <div class="message form-field">
+                        <textarea name="{{form.content.name}}" class="full-width" placeholder="Your Code">{{form.content.value | default_if_none:''}}</textarea>
+                        </div>
+
+                        <button type="submit" class="submit btn btn--primary full-width">{{btn}}</button>
+
+                    </fieldset>
+                </form> <!-- end form -->
+
+
+            </div> <!-- end s-content__main -->
+
+        </div> <!-- end row -->
+
+    </section> <!-- s-content -->
+
+
+{% endblock content %}
+
+
+
+
+
+

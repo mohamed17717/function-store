@@ -1,0 +1,146 @@
+{% extends "index.html" %}
+{% load myfilters %}
+<style>
+    /*
+    *{
+        padding: 0;
+        margin: 3px;
+        box-sizing: border-box;
+    }
+    code{
+        display: block
+    }
+    code > p{
+        background: #EEE;
+        display: inline-block;
+        padding: 5px 7px
+    }
+    */
+</style>
+
+{% block content %}
+    
+    <style>
+        .code__area{
+            background-color: #EEE;
+            padding: 15px 20px 12px;
+            margin: 0 0 24px 0;
+            overflow: auto;
+        }
+
+        .code__area > p{
+            margin: 0;
+            white-space: nowrap;
+            /*overflow: auto;*/
+            font-size: 11px;
+            max-height: 250px;
+            line-height: 1.3636em;
+        }
+
+        .entry__edit{
+            text-align: right;
+            margin-top: 8px
+        }
+
+        .entry__edit > a,
+        #add-function > a{
+            background-color: rgb(91, 122, 255);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        } 
+        #add-function{
+            margin-bottom: 15px
+        }
+    </style>
+
+    <section class="s-content">
+        <div class="row masonry-wrap">
+            <div id="add-function" style="text-align:center;">
+                <a href="{% url 'functions:add_function' %}">add_new</a>
+            </div>
+            <div class="row masonry-wrap">
+                <div class="masonry">
+                    {% for function in functions %}
+                        
+                        <article class="masonry__brick entry format-standard" data-aos="fade-up">
+                            <div class="entry__text">
+                                
+                                <!-- funcname | created time -->
+                                <div class="entry__header">
+                
+                                    <div class="entry__date">
+                                        <a href="{% url 'functions:show_function' function.slug %}">{{function.created | date:'jM, Y'}}</a>
+                                    </div>
+                                    <h1 class="entry__title"><a href="{% url 'functions:show_function' function.slug %}">{{function.name}}</a></h1>
+                                    
+                                </div>
+                                
+                                <!-- code area -->
+                                <div class="code__area">
+                                    {{function.content | replacetabs | safe | linebreaks}}
+                                </div>
+
+                                <!-- func comment -->
+                                <div class="entry__excerpt">
+                                    <p>{{function.comment}}</p>
+                                </div>
+
+                                <!-- func tags -->
+                                <div class="entry__meta">
+                                    <span class="entry__meta-links">
+                                        {% for tag in function.tags|split:' ' %}
+                                            <!--<div style="background: #FF5; display: inline">-->
+                                                <a href="{% url 'functions:tag_functions' tag %}">{{tag}}</a>
+                                                {% comment %} <a href="{% url 'functions:remove_function_tag' function.slug tag %}">x</a> {% endcomment %}
+                                            <!--</div>-->
+                                        {% endfor %}
+                                    </span>
+                                </div>
+
+                                <div class="entry__edit">
+                                    <a role="button" href="{% url 'functions:edit_function' function.slug %}">edit</a>
+                                </div>
+
+
+                            </div>
+                        </article>
+
+                    {% endfor %}
+            
+                </div>
+            </div>
+        </div> <!-- end masonry-wrap -->
+
+
+        <div class="row">
+            <div class="col-full">
+                <nav class="pgn">
+                    <ul>
+                        <li><a class="pgn__prev" href="#0">Prev</a></li>
+                        <li><a class="pgn__num" href="#0">1</a></li>
+                        <li><span class="pgn__num current">2</span></li>
+                        <li><a class="pgn__num" href="#0">3</a></li>
+                        <li><a class="pgn__num" href="#0">4</a></li>
+                        <li><a class="pgn__num" href="#0">5</a></li>
+                        <li><span class="pgn__num dots">…</span></li>
+                        <li><a class="pgn__num" href="#0">8</a></li>
+                        <li><a class="pgn__next" href="#0">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </section> <!-- s-content -->
+
+{% endblock content %}
+
+
+
+<!-- not appended -->
+{% comment %}
+    <a href="{% url 'functions:remove_function_tag' function.slug tag %}">remove-tag</a>
+{% endcomment %}
+
+ 
+
+    
