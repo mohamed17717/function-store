@@ -2,5 +2,6 @@
 store your functions with tags to back to them faster 
 
 
-<code> pip install -r requirements.txt </code>
+<code> pip3 install -r requirements.txt </code>
+<br>
 <code> python3 manage.py runserver </code>
