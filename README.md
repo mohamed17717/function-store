@@ -47,8 +47,7 @@ source env/bin/activate && cd env
 ## Note
 
 > Its my first django project
-> 
+>
 > and i didn't make the frontend becaues i was **excercising** myself only for django
 >
 > [Visit template site](https://colorlib.com/)
- 
